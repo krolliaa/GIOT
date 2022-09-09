@@ -1,0 +1,25 @@
+server:
+  port: 8110
+spring:
+  profiles:
+    active: dev
+  application:
+    name: server-edu
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.56.1:3306/giot_edu?useSSL=fasle&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      table-prefix: edu_
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.kk.service.edu.pojo
+logging:
+  level:
+    com.kk.service.edu: debug
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss SSS
