@@ -3,9 +3,7 @@ package com.kk.service.edu.controller.admin;
 import com.kk.service.edu.pojo.Teacher;
 import com.kk.service.edu.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +25,10 @@ public class TeacherController {
     @GetMapping(value = "/list")
     public List<Teacher> listAll() {
         return teacherService.list();
+    }
+
+    @DeleteMapping(value = "/remove/{id}")
+    public Boolean removeById(@PathVariable(value = "id") String id) {
+        return teacherService.removeById(id);
     }
 }

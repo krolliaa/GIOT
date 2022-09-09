@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.kk.service.base.model.BasePojo;
+import com.kk.service.edu.pojo.Teacher;
 import org.junit.jupiter.api.Test;
 
 public class CodeGenerator {
@@ -59,5 +60,8 @@ public class CodeGenerator {
     @Test
     public void test() {
         System.out.println(System.getProperty("user.dir"));
+        Teacher teacher = new Teacher();
+        System.out.println(teacher.getGmtModified());
+        System.out.println(teacher.toString());
     }
 }

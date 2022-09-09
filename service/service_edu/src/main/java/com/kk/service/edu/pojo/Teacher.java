@@ -1,5 +1,6 @@
 package com.kk.service.edu.pojo;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -8,6 +9,7 @@ import com.kk.service.base.model.BasePojo;
 import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -62,6 +64,4 @@ public class Teacher extends BasePojo {
     @TableField("is_deleted")
     @TableLogic
     private Integer deleted;
-
-
 }
