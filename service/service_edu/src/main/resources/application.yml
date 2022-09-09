@@ -7,7 +7,7 @@ spring:
     name: server-edu
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.56.1:3306/giot_edu?useSSL=fasle&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.56.1:3307/giot_edu?useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
 mybatis-plus:
