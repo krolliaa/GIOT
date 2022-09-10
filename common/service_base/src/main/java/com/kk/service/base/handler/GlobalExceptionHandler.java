@@ -1,6 +1,8 @@
 package com.kk.service.base.handler;
 
 import com.kk.common.result.ResultData;
+import com.kk.common.result.ResultEnum;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,5 +24,12 @@ public class GlobalExceptionHandler {
     public ResultData error(BadSqlGrammarException badSqlGrammarException) {
         badSqlGrammarException.printStackTrace();
         return ResultData.error().message("SQL语法错误");
+    }
+
+    @ExceptionHandler(value = {HttpMessageNotReadableException.class})
+    @ResponseBody
+    public ResultData error(HttpMessageNotReadableException httpMessageNotReadableException) {
+        httpMessageNotReadableException.printStackTrace();
+        return ResultData.setResultData(ResultEnum.JSON_PARSE_ERROR);
     }
 }
