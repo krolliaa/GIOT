@@ -3,6 +3,7 @@ package com.kk.service.edu.controller.admin;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kk.common.result.ResultData;
 import com.kk.service.edu.pojo.Teacher;
+import com.kk.service.edu.pojo.vo.TeacherQueryVo;
 import com.kk.service.edu.service.TeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,10 +39,9 @@ public class TeacherController {
     @ApiOperation(value = "分页讲师列表")
     @GetMapping(value = "/list/{current}/{size}")
     public ResultData listPage(@ApiParam(value = "当前页码", required = true) @PathVariable(value = "current") Long current,
-                               @ApiParam(value = "每页显示条数", required = true) @PathVariable(value = "size") Long size) {
-        if (current < 1) current = 1L;
-        if (size > 10) size = 10L;
-        Page<Teacher> teacherPage = teacherService.page(new Page<Teacher>(current, size));
+                               @ApiParam(value = "每页显示条数", required = true) @PathVariable(value = "size") Long size,
+                               @ApiParam(value = "讲师列表条件查询对象") TeacherQueryVo teacherQueryVo) {
+        Page<Teacher> teacherPage = teacherService.selectPage(current, size, teacherQueryVo);
         List<Teacher> teachers = teacherPage.getRecords();
         long teacherPageTotal = teacherPage.getTotal();
         return ResultData.ok().message("获取分页讲师列表成功").data("total", teacherPageTotal).data("rows", teachers);
