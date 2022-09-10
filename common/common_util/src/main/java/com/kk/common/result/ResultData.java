@@ -48,6 +48,20 @@ public class ResultData {
     }
 
     /**
+     * 根据 ResultEnum 直接返回处理结果类型
+     *
+     * @param resultEnum
+     * @return
+     */
+    public static ResultData setResultData(ResultEnum resultEnum) {
+        ResultData resultData = new ResultData();
+        resultData.setSuccess(resultEnum.getSuccess());
+        resultData.setCode(resultEnum.getCode());
+        resultData.setMessage(resultEnum.getMessage());
+        return resultData;
+    }
+
+    /**
      * 创建方法：直接传递键值对即可给 data 赋值
      *
      * @param key
