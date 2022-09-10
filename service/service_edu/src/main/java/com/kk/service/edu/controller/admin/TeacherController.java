@@ -1,5 +1,6 @@
 package com.kk.service.edu.controller.admin;
 
+import com.kk.common.result.ResultData;
 import com.kk.service.edu.pojo.Teacher;
 import com.kk.service.edu.service.TeacherService;
 import io.swagger.annotations.Api;
@@ -28,13 +29,19 @@ public class TeacherController {
 
     @ApiOperation(value = "所有讲师列表")
     @GetMapping(value = "/list")
-    public List<Teacher> listAll() {
-        return teacherService.list();
+    public ResultData listAll() {
+        List<Teacher> teachers = teacherService.list();
+        return ResultData.ok().data("teachers", teachers).message("获取讲师列表成功");
     }
 
     @ApiOperation(value = "根据 id 删除讲师【逻辑删除】", notes = "根据 id 删除讲师【逻辑删除】")
     @DeleteMapping(value = "/remove/{id}")
-    public Boolean removeById(@ApiParam(value = "讲师id", required = true) @PathVariable(value = "id") String id) {
-        return teacherService.removeById(id);
+    public ResultData removeById(@ApiParam(value = "讲师id", required = true) @PathVariable(value = "id") String id) {
+        Boolean success = teacherService.removeById(id);
+        if (success) {
+            return ResultData.ok().message("删除成功");
+        } else {
+            return ResultData.error().message("删除失败，数据不存在");
+        }
     }
 }
