@@ -18,7 +18,7 @@ import java.util.List;
  * @author kk
  * @since 2022-09-09
  */
-@Api(value = "讲师管理接口")
+@Api(value = "讲师管理接口", description = "讲师管理接口")
 @RestController
 @RequestMapping("/admin/edu/teacher")
 public class TeacherController {
