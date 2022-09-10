@@ -21,8 +21,8 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
   type-aliases-package: com.kk.service.edu.pojo
-logging:
-  level:
-    com.kk.service.edu: debug
-  pattern:
-    dateformat: yyyy-MM-dd HH:mm:ss SSS
+#logging:
+#  level:
+#    com.kk.service.edu: debug
+#  pattern:
+#    dateformat: yyyy-MM-dd HH:mm:ss SSS

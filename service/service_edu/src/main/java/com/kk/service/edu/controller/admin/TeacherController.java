@@ -8,6 +8,7 @@ import com.kk.service.edu.service.TeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ import java.util.List;
 @Api(value = "讲师管理接口", description = "讲师管理接口")
 @RestController
 @RequestMapping("/admin/edu/teacher")
+@Slf4j
 public class TeacherController {
 
     @Autowired
@@ -37,6 +39,7 @@ public class TeacherController {
     @ApiOperation(value = "所有讲师列表")
     @GetMapping(value = "/list")
     public ResultData listAll() {
+        log.debug("所有讲师列表....................");
         List<Teacher> teachers = teacherService.list();
         if (teachers != null) {
             return ResultData.ok().data("teachers", teachers).message("获取讲师列表成功");
