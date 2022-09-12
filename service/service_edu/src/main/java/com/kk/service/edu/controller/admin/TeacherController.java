@@ -26,6 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/edu/teacher")
 @Slf4j
+@CrossOrigin
 public class TeacherController {
 
     @Autowired
@@ -42,7 +43,7 @@ public class TeacherController {
         log.debug("所有讲师列表....................");
         List<Teacher> teachers = teacherService.list();
         if (teachers != null) {
-            return ResultData.ok().data("teachers", teachers).message("获取讲师列表成功");
+            return ResultData.ok().data("items", teachers).message("获取讲师列表成功");
         } else {
             return ResultData.error().message("数据不存在");
         }

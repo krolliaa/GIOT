@@ -61,7 +61,7 @@ public class Teacher extends BasePojo {
     private Date joinDate;
 
     @ApiModelProperty("逻辑删除 1（true）已删除， 0（false）未删除")
-    //@TableField("is_deleted")
+    @TableField("is_deleted")
     @TableLogic
     private Integer deleted;
 }
