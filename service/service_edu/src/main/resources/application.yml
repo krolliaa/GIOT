@@ -1,6 +1,9 @@
 server:
   port: 8110
 spring:
+  cloud:
+    nacos:
+      server-addr: 192.168.56.1:8848
   profiles:
     active: dev
   application:
@@ -21,8 +24,14 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
   type-aliases-package: com.kk.service.edu.pojo
+  mapper-locations: classpath:com/kk/service/edu/mapper/*.xml
 #logging:
 #  level:
 #    com.kk.service.edu: debug
 #  pattern:
 #    dateformat: yyyy-MM-dd HH:mm:ss SSS
+feign:
+  client:
+    config:
+      oss-service:
+        loggerLevel: FULL

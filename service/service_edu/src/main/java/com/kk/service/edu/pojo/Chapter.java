@@ -38,8 +38,14 @@ public class Chapter extends BasePojo {
     private String title;
 
     @ApiModelProperty("显示排序")
-    @TableField("sort")
     private Integer sort;
 
-
+    @Override
+    public String toString() {
+        return "Chapter{" +
+                "courseId='" + courseId + '\'' +
+                ", title='" + title + '\'' +
+                ", sort=" + sort +
+                '}';
+    }
 }

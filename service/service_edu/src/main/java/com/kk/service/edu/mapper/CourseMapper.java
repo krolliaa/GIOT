@@ -1,8 +1,16 @@
 package com.kk.service.edu.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kk.service.edu.pojo.Course;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.kk.service.edu.pojo.vo.CoursePublishVo;
+import com.kk.service.edu.pojo.vo.CourseReturnVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +22,8 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CourseMapper extends BaseMapper<Course> {
-
+    //MyBatis-Plus 会自动组装分页参数
+    //MyBatis-Plus 会自动封装 QueryWrapper
+    public abstract List<CourseReturnVo> selectPageByCourseQueryVo(Page<CourseReturnVo> page,@Param(Constants.WRAPPER) QueryWrapper<CourseReturnVo> queryWrapper);
+    public abstract CoursePublishVo selectCoursePublishById(String id);
 }

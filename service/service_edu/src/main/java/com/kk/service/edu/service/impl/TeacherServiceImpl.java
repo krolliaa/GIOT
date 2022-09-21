@@ -12,6 +12,9 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 讲师 服务实现类
@@ -29,8 +32,6 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     @Override
     public Page<Teacher> selectPage(Long current, Long size, TeacherQueryVo teacherQueryVo) {
         if (teacherQueryVo == null) return teacherMapper.selectPage(new Page<>(current, size), null);
-        if (current == null || current < 1) current = 1L;
-        if (size == null || size > 10) size = 10L;
         String name = teacherQueryVo.getName();
         Integer level = teacherQueryVo.getLevel();
         String joinDateBegin = teacherQueryVo.getJoinDateBegin();
@@ -42,5 +43,14 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         if (StringUtils.isNotBlank(joinDateEnd)) queryWrapper.le("join_date", joinDateEnd);
         queryWrapper.orderByAsc("sort");//按照 sort 字段顺序排序
         return teacherMapper.selectPage(new Page<>(current, size), queryWrapper);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectNameListByKey(String key) {
+        QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("name");
+        queryWrapper.likeRight("name", key);
+        List<Map<String, Object>> list = baseMapper.selectMaps(queryWrapper);
+        return list;
     }
 }

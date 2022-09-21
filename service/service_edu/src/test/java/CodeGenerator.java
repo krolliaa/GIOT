@@ -6,8 +6,11 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.kk.service.base.model.BasePojo;
+import com.kk.service.edu.mapper.SubjectMapper;
 import com.kk.service.edu.pojo.Teacher;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 public class CodeGenerator {
 
@@ -29,7 +32,7 @@ public class CodeGenerator {
                             .service("service")
                             .serviceImpl("service.impl")
                             .controller("controller")
-                            .mapper("mapper");
+                            .mapper("com/kk/service/edu/mapper");
                 })
                 .strategyConfig(builder -> {
                     builder.addTablePrefix("edu_") // 设置过滤表前缀

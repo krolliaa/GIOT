@@ -30,6 +30,9 @@ public class Course extends BasePojo {
 
     private static final long serialVersionUID = 1L;
 
+    public static final String COURSE_DRAFT = "Draft";
+    public static final String COURSE_NORMAL = "Normal";
+
     @ApiModelProperty("课程讲师ID")
     @TableField("teacher_id")
     private String teacherId;
@@ -74,5 +77,20 @@ public class Course extends BasePojo {
     @TableField("status")
     private String status;
 
-
+    @Override
+    public String toString() {
+        return "Course{" +
+                "teacherId='" + teacherId + '\'' +
+                ", subjectId='" + subjectId + '\'' +
+                ", subjectParentId='" + subjectParentId + '\'' +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", lessonNum=" + lessonNum +
+                ", cover='" + cover + '\'' +
+                ", buyCount=" + buyCount +
+                ", viewCount=" + viewCount +
+                ", version=" + version +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

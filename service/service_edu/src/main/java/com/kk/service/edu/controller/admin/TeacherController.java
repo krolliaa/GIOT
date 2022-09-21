@@ -2,6 +2,7 @@ package com.kk.service.edu.controller.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kk.common.result.ResultData;
+import com.kk.feign_api.client.OSSClient;
 import com.kk.service.edu.pojo.Teacher;
 import com.kk.service.edu.pojo.vo.TeacherQueryVo;
 import com.kk.service.edu.service.TeacherService;
@@ -9,10 +10,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -79,17 +83,40 @@ public class TeacherController {
     @ApiOperation(value = "根据 id 删除讲师【逻辑删除】", notes = "根据 id 删除讲师【逻辑删除】")
     @DeleteMapping(value = "/remove/{id}")
     public ResultData removeById(@ApiParam(value = "讲师id", required = true) @PathVariable(value = "id") String id) {
+        String avatarUrl = teacherService.getById(id).getAvatar();
         Boolean success = teacherService.removeById(id);
+        // 使用 OpenFeign 调用 service_oss 中的删除头像接口
         if (success) {
-            return ResultData.ok().message("删除成功");
+            boolean result = ossClient.deleteFile(avatarUrl).getSuccess();
+            String message = "删除成功";
+            if (!result) message += "但头像删除错误，请联系管理员！";
+            return ResultData.ok().message(message);
         } else {
             return ResultData.error().message("删除失败，数据不存在");
+        }
+    }
+
+    @ApiOperation(value = "批量删除讲师【逻辑删除】", notes = "批量删除讲师【逻辑删除】")
+    @DeleteMapping(value = "/batch-remove")
+    public ResultData removeByIds(@ApiParam(value = "讲师idList", required = true) @RequestBody List<String> idList) {
+        List<String> avatarUrlList = new ArrayList<>();
+        for (String id : idList) avatarUrlList.add(teacherService.getById(id).getAvatar());
+        boolean success = teacherService.removeByIds(idList);
+        if (success) {
+            boolean result = ossClient.deleteFile(avatarUrlList).getSuccess();
+            String message = "批量删除成功";
+            if (!result) message += "但头像删除错误，请联系管理员！";
+            return ResultData.ok().message(message);
+        } else {
+            return ResultData.error().message("批量删除失败！");
         }
     }
 
     @ApiOperation(value = "新增讲师")
     @PostMapping("/save")
     public ResultData save(@ApiParam(value = "讲师对象", required = true) @RequestBody Teacher teacher) {
+        if (!StringUtils.isNotBlank(teacher.getAvatar()))
+            teacher.setAvatar("https://giot-file.oss-cn-shenzhen.aliyuncs.com/avator/2022-09-15/default.jpg");
         Boolean success = teacherService.save(teacher);
         if (success) {
             return ResultData.ok().message("保存成功");
@@ -119,5 +146,22 @@ public class TeacherController {
         } else {
             return ResultData.error().message("数据不存在");
         }
+    }
+
+    @ApiOperation(value = "查询匹配的讲师名称列表")
+    @GetMapping(value = "/list/name/{key}")
+    public ResultData selectNameListByKey(@ApiParam(value = "查询关键字", required = true) @PathVariable(value = "key") String key) {
+        System.out.println(key);
+        List<Map<String, Object>> nameList = teacherService.selectNameListByKey(key);
+        return ResultData.ok().data("nameList", nameList);
+    }
+
+    @Autowired
+    private OSSClient ossClient;
+
+    @ApiOperation(value = "测试 OpenFeign 远程调用")
+    @GetMapping(value = "/test")
+    public ResultData test() {
+        return ossClient.test();
     }
 }

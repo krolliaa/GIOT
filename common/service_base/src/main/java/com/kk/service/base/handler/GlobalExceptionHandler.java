@@ -3,6 +3,7 @@ package com.kk.service.base.handler;
 import com.kk.common.result.ResultData;
 import com.kk.common.result.ResultEnum;
 import com.kk.common.util.ExceptionUtils;
+import com.kk.service.base.exception.GiotException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -32,5 +33,14 @@ public class GlobalExceptionHandler {
     public ResultData error(HttpMessageNotReadableException httpMessageNotReadableException) {
         log.error(ExceptionUtils.getMessage(httpMessageNotReadableException));
         return ResultData.setResultData(ResultEnum.JSON_PARSE_ERROR);
+    }
+
+    @ExceptionHandler(value = {GiotException.class})
+    @ResponseBody
+    public ResultData error(GiotException giotException) {
+        //打印具体信息
+        log.error(ExceptionUtils.getMessage(giotException));
+        //返回结果给用户
+        return ResultData.error().code(giotException.getCode()).message(giotException.getMessage());
     }
 }

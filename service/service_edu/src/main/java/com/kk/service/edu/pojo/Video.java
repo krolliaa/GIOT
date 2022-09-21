@@ -1,9 +1,6 @@
 package com.kk.service.edu.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.kk.service.base.model.BasePojo;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -77,5 +74,21 @@ public class Video extends BasePojo {
     @TableField("version")
     private Long version;
 
-
+    @Override
+    public String toString() {
+        return "Video{" +
+                "courseId='" + courseId + '\'' +
+                ", chapterId='" + chapterId + '\'' +
+                ", title='" + title + '\'' +
+                ", videoSourceId='" + videoSourceId + '\'' +
+                ", videoOriginalName='" + videoOriginalName + '\'' +
+                ", sort=" + sort +
+                ", playCount=" + playCount +
+                ", free=" + isFree +
+                ", duration=" + duration +
+                ", status='" + status + '\'' +
+                ", size=" + size +
+                ", version=" + version +
+                '}';
+    }
 }

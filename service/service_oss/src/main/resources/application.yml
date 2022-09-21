@@ -1,0 +1,16 @@
+server:
+  port: 8120
+spring:
+  cloud:
+    nacos:
+      server-addr: 192.168.56.1:8848
+  profiles:
+    active: dev
+  application:
+    name: service-oss
+aliyun:
+  oss:
+    endpoint: xxxxxxxxxxxxxxxxxxx
+    keyid: xxxxxxxxxxxxxxxx
+    keysecret: xxxxxxxxxxxxxxxxxx
+    bucketname: xxxxxxxxxxxxxxxxxxxx
