@@ -5,6 +5,7 @@ import com.kk.service.edu.pojo.Teacher;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.kk.service.edu.pojo.vo.TeacherQueryVo;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,4 +20,5 @@ import java.util.Map;
 public interface TeacherService extends IService<Teacher> {
     public abstract Page<Teacher> selectPage(Long current, Long size, TeacherQueryVo teacherQueryVo);
     public abstract List<Map<String, Object>> selectNameListByKey(String key);
+    public abstract HashMap<String, Object> selectTeacherInfoById(String id);
 }
