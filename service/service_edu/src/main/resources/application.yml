@@ -13,6 +13,7 @@ spring:
     url: jdbc:mysql://192.168.56.1:3307/giot_edu?useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
+
   jackson:
     date-format:  yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8

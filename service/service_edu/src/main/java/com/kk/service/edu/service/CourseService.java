@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kk.service.edu.pojo.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.kk.service.edu.pojo.form.CourseInfoForm;
-import com.kk.service.edu.pojo.vo.CoursePublishVo;
-import com.kk.service.edu.pojo.vo.CourseQueryVo;
-import com.kk.service.edu.pojo.vo.CourseReturnVo;
+import com.kk.service.edu.pojo.vo.*;
 
 import java.util.List;
 
@@ -26,4 +24,6 @@ public interface CourseService extends IService<Course> {
     public abstract String updateCourseInfo(CourseInfoForm courseInfoForm);
     public abstract Page<CourseReturnVo> selectPageByCourseQueryVo(Long current, Long size, CourseQueryVo courseQueryVo);
     public abstract boolean removeCourseById(String id);
+    public abstract List<Course> webSelectList(WebCourseQueryVo webCourseQueryVo);
+    public abstract WebCourseReturnVo selectWebCourseReturnVoById(String courseId);
 }

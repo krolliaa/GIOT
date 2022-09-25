@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kk.service.edu.mapper.CourseMapper">
-
     <sql id="columns">
         course.id,
         course.title,
@@ -25,6 +24,34 @@
         left join edu_subject `subject` on course.subject_id = `subject`.id
     </sql>
 
+
+    <sql id="web_columns">
+        course.id,
+		course.title,
+		CONVERT(course.price, DECIMAL(8,2)) as price,
+		course.lesson_num,
+		course.buy_count,
+		course.view_count,
+		course.cover,
+		course_description.description,
+		teacher.id as teacher_id,
+		teacher.`name` as teacher_name,
+		teacher.avatar as teacher_avatar,
+		teacher.intro as teacher_intro,
+		subject1.id as subject_parent_id,
+		subject1.title as subjectOneTitle,
+		subject2.id as subject_id,
+		subject2.title as subjectTwoTitle
+    </sql>
+
+    <sql id="web_tables">
+        edu_course course
+        left join edu_teacher teacher on course.teacher_id = teacher.id
+        left join edu_course_description course_description on course.id = course_description.id
+        left join edu_subject subject1 on course.subject_parent_id = subject1.id
+        left join edu_subject subject2 on course.subject_id = subject2.id
+    </sql>
+
     <select id="selectPageByCourseQueryVo" resultType="com.kk.service.edu.pojo.vo.CourseReturnVo">
         select
         <include refid="columns"/>
@@ -40,32 +67,12 @@
         <include refid="tables"/>
         where course.id = #{id}
     </select>
-    <!--
-        SQL 语句：
-            select
-                course.id,
-                course.title,
-                teacher.`name`,
-                `subjectParent`.title as `subject_parent_title`,
-                `subject`.title as `subject_title`,
-                course.cover,
-                course.lesson_num,
-                course.price,
-                course.`status`,
-                course.view_count,
-                course.buy_count,
-                course.gmt_create
-            from edu_course course
-            left join edu_teacher teacher on course.teacher_id = teacher.id
-            left join edu_subject `subjectParent` on course.subject_parent_id = `subjectParent`.id
-            left join edu_subject `subject` on course.subject_id = `subject`.id
-            where
-                subject_id = '1571386290452144130'
-            and
-                subject_parent_id = '1571386290351480833'
-            and
-                course.title like '%彭%'
-            and
-              teacher_id = 7
-    -->
+
+    <select id="selectWebCourseReturnVoById" resultType="com.kk.service.edu.pojo.vo.WebCourseReturnVo">
+        select
+        <include refid="web_columns"/>
+        from
+        <include refid="web_tables"/>
+        where course.status = 'Normal' and course.id = #{courseId}
+    </select>
 </mapper>

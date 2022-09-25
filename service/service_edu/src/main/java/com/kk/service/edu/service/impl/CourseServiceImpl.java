@@ -1,15 +1,14 @@
 package com.kk.service.edu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kk.common.result.ResultData;
 import com.kk.feign_api.client.OSSClient;
 import com.kk.service.edu.mapper.*;
 import com.kk.service.edu.pojo.*;
 import com.kk.service.edu.pojo.form.CourseInfoForm;
-import com.kk.service.edu.pojo.vo.CoursePublishVo;
-import com.kk.service.edu.pojo.vo.CourseQueryVo;
-import com.kk.service.edu.pojo.vo.CourseReturnVo;
+import com.kk.service.edu.pojo.vo.*;
 import com.kk.service.edu.service.CourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.logging.log4j.util.Strings;
@@ -113,22 +112,22 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         String subjectId = "";
         String subjectParentId = "";
         String teacherId = "";
-        if(courseQueryVo != null) {
+        if (courseQueryVo != null) {
             // 多表查询后续使用 ${ew.customSqlSegment} 自定义结果，这里的 column 稍微特殊一些
             title = courseQueryVo.getTitle();
-            if(Strings.isNotBlank(title)) {
+            if (Strings.isNotBlank(title)) {
                 queryWrapper.like("course.title", title);
             }
             subjectParentId = courseQueryVo.getSubjectParentId();
-            if(Strings.isNotBlank(subjectId)) {
+            if (Strings.isNotBlank(subjectId)) {
                 queryWrapper.eq("course.subject_id", subjectId);
             }
             subjectId = courseQueryVo.getSubjectId();
-            if(Strings.isNotBlank(subjectParentId)) {
+            if (Strings.isNotBlank(subjectParentId)) {
                 queryWrapper.eq("course.subject_parent_id", subjectParentId);
             }
             teacherId = courseQueryVo.getTeacherId();
-            if(Strings.isNotBlank(teacherId)) {
+            if (Strings.isNotBlank(teacherId)) {
                 queryWrapper.eq("course.teacher_id", teacherId);
             }
         }
@@ -143,9 +142,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public boolean removeCourseById(String id) {
         // 删除封面
         Course course = baseMapper.selectById(id);
-        if(course != null) {
+        if (course != null) {
             String cover = course.getCover();
-            if(Strings.isNotBlank(cover)) {
+            if (Strings.isNotBlank(cover)) {
                 ossClient.deleteFile(cover);
             }
         }
@@ -173,5 +172,39 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         //课程详情：course_description
         courseDescriptionMapper.deleteById(id);
         return courseMapper.deleteById(id) != 0 ? true : false;
+    }
+
+    @Override
+    public List<Course> webSelectList(WebCourseQueryVo webCourseQueryVo) {
+        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+        //查询已发布的课程
+        queryWrapper.eq("status", Course.COURSE_NORMAL);
+        if (!StringUtils.isEmpty(webCourseQueryVo.getSubjectParentId())) {
+            queryWrapper.eq("subject_parent_id", webCourseQueryVo.getSubjectParentId());
+        }
+        if (!StringUtils.isEmpty(webCourseQueryVo.getSubjectId())) {
+            queryWrapper.eq("subject_id", webCourseQueryVo.getSubjectId());
+        }
+        if (!StringUtils.isEmpty(webCourseQueryVo.getBuyCountSort())) {
+            queryWrapper.orderByDesc("buy_count");
+        }
+        if (!StringUtils.isEmpty(webCourseQueryVo.getGmtCreateSort())) {
+            queryWrapper.orderByDesc("gmt_create");
+        }
+        if (!StringUtils.isEmpty(webCourseQueryVo.getPriceSort())) {
+            if ("1".equals(webCourseQueryVo.getPriceSort())) queryWrapper.orderByDesc("price");
+            else queryWrapper.orderByAsc("price");
+        }
+        return baseMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public WebCourseReturnVo selectWebCourseReturnVoById(String courseId) {
+        // 每次点击都会增加一次课程浏览数
+        Course course = courseMapper.selectById(courseId);
+        course.setViewCount(course.getViewCount() + 1);
+        courseMapper.updateById(course);
+        return courseMapper.selectWebCourseReturnVoById(courseId);
     }
 }
