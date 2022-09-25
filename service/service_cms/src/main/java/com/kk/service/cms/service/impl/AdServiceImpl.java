@@ -6,6 +6,7 @@ import com.kk.service.cms.pojo.Ad;
 import com.kk.service.cms.mapper.AdMapper;
 import com.kk.service.cms.service.AdService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class AdServiceImpl extends ServiceImpl<AdMapper, Ad> implements AdServic
     }
 
     @Override
+    @Cacheable(value = "index", key = "selectByAdPositionId")
     public List<Ad> selectByAdPositionId(String adPositionId) {
         QueryWrapper<Ad> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByAsc("sort", "id");

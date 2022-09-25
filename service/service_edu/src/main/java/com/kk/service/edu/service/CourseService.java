@@ -26,4 +26,5 @@ public interface CourseService extends IService<Course> {
     public abstract boolean removeCourseById(String id);
     public abstract List<Course> webSelectList(WebCourseQueryVo webCourseQueryVo);
     public abstract WebCourseReturnVo selectWebCourseReturnVoById(String courseId);
+    public abstract List<Course> selectHot();
 }

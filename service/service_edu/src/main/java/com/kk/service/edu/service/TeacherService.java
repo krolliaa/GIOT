@@ -1,6 +1,7 @@
 package com.kk.service.edu.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.kk.service.edu.pojo.Course;
 import com.kk.service.edu.pojo.Teacher;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.kk.service.edu.pojo.vo.TeacherQueryVo;
@@ -21,4 +22,5 @@ public interface TeacherService extends IService<Teacher> {
     public abstract Page<Teacher> selectPage(Long current, Long size, TeacherQueryVo teacherQueryVo);
     public abstract List<Map<String, Object>> selectNameListByKey(String key);
     public abstract HashMap<String, Object> selectTeacherInfoById(String id);
+    public abstract List<Teacher> selectHot();
 }

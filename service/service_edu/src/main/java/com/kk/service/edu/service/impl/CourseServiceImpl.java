@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -206,5 +207,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         course.setViewCount(course.getViewCount() + 1);
         courseMapper.updateById(course);
         return courseMapper.selectWebCourseReturnVoById(courseId);
+    }
+
+    @Override
+    @Cacheable(value = "index", key = "selectHotCourse")
+    public List<Course> selectHot() {
+        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("view_count");
+        queryWrapper.last("limit 8");
+        return courseMapper.selectList(queryWrapper);
     }
 }
