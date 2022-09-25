@@ -75,7 +75,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     }
 
     @Override
-    @Cacheable(value = "index", key = "selectHotTeacher")
+    @Cacheable(value = "index", key = "'selectHotTeacher'")
     public List<Teacher> selectHot() {
         QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("sort");

@@ -30,7 +30,7 @@ public class AdServiceImpl extends ServiceImpl<AdMapper, Ad> implements AdServic
     }
 
     @Override
-    @Cacheable(value = "index", key = "selectByAdPositionId")
+    @Cacheable(value = "index", key = "'selectByAdPositionId'")
     public List<Ad> selectByAdPositionId(String adPositionId) {
         QueryWrapper<Ad> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByAsc("sort", "id");

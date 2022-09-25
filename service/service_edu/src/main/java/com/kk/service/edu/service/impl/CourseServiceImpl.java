@@ -210,7 +210,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    @Cacheable(value = "index", key = "selectHotCourse")
+    @Cacheable(value = "index", key = "'selectHotCourse'")
     public List<Course> selectHot() {
         QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("view_count");
