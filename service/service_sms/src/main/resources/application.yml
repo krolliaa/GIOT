@@ -1,0 +1,28 @@
+server:
+  port: 8150
+spring:
+  cloud:
+    nacos:
+      server-addr: 192.168.56.1:8848
+  profiles:
+    active: dev
+  application:
+    name: service-sms
+  redis:
+    host: 192.168.56.1
+    port: 6379
+    database: 0
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+# 自定义阿里云短信业务，使用`ConfigurationProperties`读取
+aliyun:
+  sms:
+    regionId: xxxxxxxxx
+    accessKeyId: xxxxxxxxxxxx
+    accessKeySecret: xxxxxxxxx
+    signName: xxxxxxxxxxxx
+    templateCode: xxxxxxxxxxx

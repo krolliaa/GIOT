@@ -1,0 +1,36 @@
+server:
+  port: 8160
+spring:
+  application:
+    name: service-ucenter
+  redis:
+    host: 192.168.56.1
+    port: 6379
+    database: 0
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+  cloud:
+    nacos:
+      server-addr: 192.168.56.1:8848
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.56.1:3307/giot_ucenter?useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+mybatis-plus:
+  mapper-locations: classpath:com/kk/service/ucenter/mapper/*.xml
+  global-config:
+    db-config:
+      table-prefix: ucenter_
+  type-aliases-package: com.kk.service.ucenter.pojo
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
