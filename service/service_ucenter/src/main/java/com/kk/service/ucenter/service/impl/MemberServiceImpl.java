@@ -4,10 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.kk.common.result.ResultEnum;
 import com.kk.common.util.FormUtils;
+import com.kk.common.util.JWTInfo;
+import com.kk.common.util.JWTUtils;
 import com.kk.common.util.MD5Utils;
 import com.kk.service.base.exception.GiotException;
 import com.kk.service.ucenter.pojo.Member;
 import com.kk.service.ucenter.mapper.MemberMapper;
+import com.kk.service.ucenter.pojo.vo.LoginVo;
 import com.kk.service.ucenter.pojo.vo.RegisterVo;
 import com.kk.service.ucenter.service.MemberService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -62,5 +65,32 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         member.setDisabled(false);
         member.setAvatar("http://mms2.baidu.com/it/u=1387192414,1642993848&fm=253&app=138&f=JPEG&fmt=auto&q=75?w=200&h=200");
         baseMapper.insert(member);
+    }
+
+    @Override
+    public String login(LoginVo loginVo) {
+        if (loginVo == null) throw new GiotException(ResultEnum.LOGIN_ERROR);
+        String mobile = loginVo.getMobile();
+        String password = loginVo.getPassword();
+        if (StringUtils.isBlank(mobile) || StringUtils.isBlank(password))
+            throw new GiotException(ResultEnum.LOGIN_ERROR);
+        //比对数据库
+        QueryWrapper<Member> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("mobile", mobile);
+        queryWrapper.eq("password", MD5Utils.encrypt(password));
+        Member member = baseMapper.selectOne(queryWrapper);
+        if (member == null) throw new GiotException(ResultEnum.LOGIN_ERROR);
+        //是否被禁用，若禁用告知用户
+        if (member.getDisabled()) throw new GiotException(ResultEnum.LOGIN_DISABLED_ERROR);
+        //验证通过，返回 JWT 字符串，过期时间设定为 30min
+        String JWT = JWTUtils.generateJWT(new JWTInfo(member.getId(), member.getNickname(), member.getAvatar()), 1800);
+        return JWT;
+    }
+
+    @Override
+    public Member getByOpenid(String openid) {
+        QueryWrapper<Member> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("openid", openid);
+        return baseMapper.selectOne(queryWrapper);
     }
 }

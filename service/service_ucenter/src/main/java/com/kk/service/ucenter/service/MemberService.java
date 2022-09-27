@@ -1,7 +1,9 @@
 package com.kk.service.ucenter.service;
 
+import com.kk.common.result.ResultEnum;
 import com.kk.service.ucenter.pojo.Member;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.kk.service.ucenter.pojo.vo.LoginVo;
 import com.kk.service.ucenter.pojo.vo.RegisterVo;
 
 /**
@@ -14,4 +16,6 @@ import com.kk.service.ucenter.pojo.vo.RegisterVo;
  */
 public interface MemberService extends IService<Member> {
     public abstract void register(RegisterVo registerVo);
+    public abstract String login(LoginVo loginVo);
+    public abstract Member getByOpenid(String openid);
 }

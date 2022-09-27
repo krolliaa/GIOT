@@ -34,3 +34,8 @@ mybatis-plus:
   type-aliases-package: com.kk.service.ucenter.pojo
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+wx:
+  open:
+    appId: wxed9954c01bb89b47
+    appSecret: a7482517235173ddb4083788de60b90e
+    redirectUri: http://localhost:8160/api/ucenter/wx/callback8160
