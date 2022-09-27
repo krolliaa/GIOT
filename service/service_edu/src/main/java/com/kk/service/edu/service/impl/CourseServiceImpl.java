@@ -7,6 +7,7 @@ import com.kk.common.result.ResultData;
 import com.kk.feign_api.client.OSSClient;
 import com.kk.service.edu.mapper.*;
 import com.kk.service.edu.pojo.*;
+import com.kk.service.edu.pojo.dto.CourseDto;
 import com.kk.service.edu.pojo.form.CourseInfoForm;
 import com.kk.service.edu.pojo.vo.*;
 import com.kk.service.edu.service.CourseService;
@@ -216,5 +217,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         queryWrapper.orderByDesc("view_count");
         queryWrapper.last("limit 8");
         return courseMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public CourseDto getCourseDtoByCourseId(String id) {
+        //因为涉及到讲师姓名这里要做多表查询，所以需要自定义 Mapper SQL 语句
+        return courseMapper.getCourseDtoByCourseId(id);
     }
 }

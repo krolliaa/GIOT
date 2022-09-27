@@ -10,10 +10,12 @@ import com.kk.common.util.MD5Utils;
 import com.kk.service.base.exception.GiotException;
 import com.kk.service.ucenter.pojo.Member;
 import com.kk.service.ucenter.mapper.MemberMapper;
+import com.kk.service.ucenter.pojo.dto.MemberDto;
 import com.kk.service.ucenter.pojo.vo.LoginVo;
 import com.kk.service.ucenter.pojo.vo.RegisterVo;
 import com.kk.service.ucenter.service.MemberService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -92,5 +94,13 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         QueryWrapper<Member> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("openid", openid);
         return baseMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public MemberDto getMemberDtoByMemberId(String id) {
+        Member member = baseMapper.selectById(id);
+        MemberDto memberDto = new MemberDto();
+        BeanUtils.copyProperties(member, memberDto);
+        return memberDto;
     }
 }

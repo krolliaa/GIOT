@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kk.service.edu.pojo.Course;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.kk.service.edu.pojo.dto.CourseDto;
 import com.kk.service.edu.pojo.vo.CoursePublishVo;
 import com.kk.service.edu.pojo.vo.CourseReturnVo;
 import com.kk.service.edu.pojo.vo.WebCourseReturnVo;
@@ -28,4 +29,5 @@ public interface CourseMapper extends BaseMapper<Course> {
     public abstract List<CourseReturnVo> selectPageByCourseQueryVo(Page<CourseReturnVo> page,@Param(Constants.WRAPPER) QueryWrapper<CourseReturnVo> queryWrapper);
     public abstract CoursePublishVo selectCoursePublishById(String id);
     public abstract WebCourseReturnVo selectWebCourseReturnVoById(String courseId);
+    public abstract CourseDto getCourseDtoByCourseId(String id);
 }

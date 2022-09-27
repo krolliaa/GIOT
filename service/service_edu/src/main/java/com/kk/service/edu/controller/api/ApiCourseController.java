@@ -2,6 +2,7 @@ package com.kk.service.edu.controller.api;
 
 import com.kk.common.result.ResultData;
 import com.kk.service.edu.pojo.Course;
+import com.kk.service.edu.pojo.dto.CourseDto;
 import com.kk.service.edu.pojo.vo.ChapterReturnVo;
 import com.kk.service.edu.pojo.vo.WebCourseQueryVo;
 import com.kk.service.edu.pojo.vo.WebCourseReturnVo;
@@ -41,5 +42,11 @@ public class ApiCourseController {
         //查询当前课程的章节信息
         List<ChapterReturnVo> chapterReturnVoList = chapterService.chapterReturnVoList(courseId);
         return ResultData.ok().data("course", webCourseReturnVo).data("chapterList", chapterReturnVoList);
+    }
+
+    @ApiOperation("根据课程id查询课程信息")
+    @GetMapping("/inner/get-course-dto/{courseId}")
+    public CourseDto getCourseDtoByCourseId(@ApiParam(value = "课程ID", required = true) @PathVariable(value = "courseId") String courseId) {
+        return courseService.getCourseDtoByCourseId(courseId);
     }
 }

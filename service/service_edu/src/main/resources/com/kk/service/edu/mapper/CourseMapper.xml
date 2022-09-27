@@ -75,4 +75,22 @@
         <include refid="web_tables"/>
         where course.status = 'Normal' and course.id = #{courseId}
     </select>
+
+    <select id="getCourseDtoByCourseId" resultType="com.kk.service.edu.pojo.dto.CourseDto">
+        select
+            course.id,
+            course.title,
+            CONVERT(course.price, DECIMAL(8,2)) as price,
+            course.price,
+            course.cover,
+            teacher.`name` as teacher_name
+        from
+            edu_course course
+        left join
+            edu_teacher teacher
+        on
+            course.teacher_id = teacher.id
+        where
+            course.id = #{id}
+    </select>
 </mapper>

@@ -17,6 +17,7 @@
         <module>service_cms</module>
         <module>service_sms</module>
         <module>service_ucenter</module>
+        <module>service_trade</module>
     </modules>
 
     <properties>
@@ -122,6 +123,15 @@
                     <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.kk</groupId>
+            <artifactId>feign_api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>

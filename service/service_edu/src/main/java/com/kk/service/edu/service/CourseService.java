@@ -3,6 +3,7 @@ package com.kk.service.edu.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kk.service.edu.pojo.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.kk.service.edu.pojo.dto.CourseDto;
 import com.kk.service.edu.pojo.form.CourseInfoForm;
 import com.kk.service.edu.pojo.vo.*;
 
@@ -27,4 +28,5 @@ public interface CourseService extends IService<Course> {
     public abstract List<Course> webSelectList(WebCourseQueryVo webCourseQueryVo);
     public abstract WebCourseReturnVo selectWebCourseReturnVoById(String courseId);
     public abstract List<Course> selectHot();
+    public abstract CourseDto getCourseDtoByCourseId(String id);
 }

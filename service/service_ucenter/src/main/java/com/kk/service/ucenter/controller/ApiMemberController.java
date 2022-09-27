@@ -7,6 +7,7 @@ import com.kk.common.result.ResultEnum;
 import com.kk.common.util.JWTInfo;
 import com.kk.common.util.JWTUtils;
 import com.kk.service.base.exception.GiotException;
+import com.kk.service.ucenter.pojo.dto.MemberDto;
 import com.kk.service.ucenter.pojo.vo.LoginVo;
 import com.kk.service.ucenter.pojo.vo.RegisterVo;
 import com.kk.service.ucenter.service.MemberService;
@@ -55,5 +56,11 @@ public class ApiMemberController {
             log.error("解析用户信息失败，" + e.getMessage());
             throw new GiotException(ResultEnum.FETCH_USERINFO_ERROR);
         }
+    }
+
+    @ApiOperation("根据会员id查询课程信息")
+    @GetMapping("/inner/get-member-dto/{memberId}")
+    public MemberDto getCourseDtoByCourseId(@ApiParam(value = "会员ID", required = true) @PathVariable(value = "memberId") String memberId) {
+        return memberService.getMemberDtoByMemberId(memberId);
     }
 }

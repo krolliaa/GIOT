@@ -1,8 +1,8 @@
 server:
-  port: 8160
+  port: 8170
 spring:
   application:
-    name: service-ucenter
+    name: service-trade
   redis:
     host: 192.168.56.1
     port: 6379
@@ -20,22 +20,17 @@ spring:
     active: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.56.1:3307/giot_ucenter?useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.56.1:3307/giot_trade?useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 mybatis-plus:
-  mapper-locations: classpath*:com/kk/service/ucenter/mapper/*.xml
-  global-config:
-    db-config:
-      table-prefix: ucenter_
-  type-aliases-package: com.kk.service.ucenter.pojo
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-wx:
-  open:
-    appId: wxed9954c01bb89b47
-    appSecret: a7482517235173ddb4083788de60b90e
-    redirectUri: http://localhost:8160/api/ucenter/wx/callback8160
+  global-config:
+    db-config:
+      table-prefix: trade_
+  type-aliases-package: com.kk.service.pojo
+  mapper-locations: classpath*:com/kk/service/trade/mapper/*.xml
