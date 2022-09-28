@@ -14,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface OrderService extends IService<Order> {
     public abstract String saveOrder(String courseId, String memberId);
     public abstract Order getByOrderId(String orderId, String memberId);
+    public abstract Boolean isBuyByOrderId(String courseId, String memberId);
 }

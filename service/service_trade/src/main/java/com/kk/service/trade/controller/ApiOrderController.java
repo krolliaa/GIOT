@@ -32,8 +32,8 @@ public class ApiOrderController {
     @Autowired
     private OrderService orderService;
 
-    @ApiOperation("新增订单")
-    @PostMapping("auth/save/{courseId}")
+    @ApiOperation(value = "新增订单")
+    @PostMapping(value = "auth/save/{courseId}")
     public ResultData save(@PathVariable String courseId, HttpServletRequest request) {
         JWTInfo jwtInfo = JWTUtils.getMember(request);
         if (jwtInfo == null) return ResultData.error().message("该操作只允许会员操作！请先登录！");
@@ -43,11 +43,22 @@ public class ApiOrderController {
         return ResultData.ok().message("获取订单成功！").data("orderId", orderId);
     }
 
-    @ApiOperation("获取订单")
-    @GetMapping("/auth/get/{orderId}")
+    @ApiOperation(value = "获取订单")
+    @GetMapping(value = "/auth/get/{orderId}")
     public ResultData get(@PathVariable String orderId, HttpServletRequest request) {
         JWTInfo jwtInfo = JWTUtils.getMember(request);
         Order order = orderService.getByOrderId(orderId, jwtInfo.getId());
         return ResultData.ok().data("item", order);
+    }
+
+    @ApiOperation(value = "是否购买")
+    @GetMapping(value = "/auth/is-buy/{courseId}")
+    public ResultData isBuyByCourseId(@PathVariable(value = "courseId") String courseId, HttpServletRequest httpServletRequest) {
+        JWTInfo jwtInfo = JWTUtils.getMember(httpServletRequest);
+        //如果 Token 失效了则需要重新登陆：
+        if (jwtInfo == null) return ResultData.error().message("登录已过期，请重新登录");
+        Boolean isBuy = orderService.isBuyByOrderId(courseId, jwtInfo.getId());
+        if(isBuy) return ResultData.ok().data("isBuy", isBuy).message("已购该课程，可直接观看噢");
+        else return ResultData.error().message("提示：尚未购买该课程，还无法观看噢");
     }
 }

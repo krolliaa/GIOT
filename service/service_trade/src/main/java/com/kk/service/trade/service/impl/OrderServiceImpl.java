@@ -12,6 +12,7 @@ import com.kk.service.trade.mapper.OrderMapper;
 import com.kk.service.trade.service.OrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kk.service.trade.util.OrderNoUtils;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,5 +74,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         queryWrapper.eq("member_id", memberId);
         Order order = baseMapper.selectOne(queryWrapper);
         return order;
+    }
+
+    @Override
+    public Boolean isBuyByOrderId(String courseId, String memberId) {
+        QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("course_id", courseId);
+        queryWrapper.eq("member_id", memberId);
+        queryWrapper.eq("status", 1);
+        Long aLong = baseMapper.selectCount(queryWrapper);
+        return (aLong > 0);
     }
 }
