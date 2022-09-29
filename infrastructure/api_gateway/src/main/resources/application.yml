@@ -1,0 +1,15 @@
+server:
+  port: 9110
+spring:
+  application:
+    name: infrastructure-apigateway
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      server-addr: 192.168.56.1:8848
+    gateway:
+      routes:
+        - id:
+          uri:
+          predicate:

@@ -1,5 +1,6 @@
 package com.kk.service.trade.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.kk.common.result.ResultData;
 import com.kk.common.util.JWTInfo;
 import com.kk.common.util.JWTUtils;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 /**
@@ -58,7 +60,26 @@ public class ApiOrderController {
         //如果 Token 失效了则需要重新登陆：
         if (jwtInfo == null) return ResultData.error().message("登录已过期，请重新登录");
         Boolean isBuy = orderService.isBuyByOrderId(courseId, jwtInfo.getId());
-        if(isBuy) return ResultData.ok().data("isBuy", isBuy).message("已购该课程，可直接观看噢");
+        if (isBuy) return ResultData.ok().data("isBuy", isBuy).message("已购该课程，可直接观看噢");
         else return ResultData.error().message("提示：尚未购买该课程，还无法观看噢");
+    }
+
+    @ApiOperation(value = "订单列表")
+    @GetMapping(value = "/auth/list")
+    public ResultData list(HttpServletRequest httpServletRequest) {
+        JWTInfo jwtInfo = JWTUtils.getMember(httpServletRequest);
+        if (jwtInfo == null) return ResultData.error().message("登录已过期，请重新登录");
+        List<Order> orderList = orderService.getListByMemberId(jwtInfo.getId());
+        return ResultData.ok().data("items", orderList);
+    }
+
+    @ApiOperation(value = "删除订单")
+    @DeleteMapping("auth/remove/{orderId}")
+    public ResultData remove(@PathVariable String orderId, HttpServletRequest request) {
+        JWTInfo jwtInfo = JWTUtils.getMember(request);
+        if (jwtInfo == null) return ResultData.error().message("登录已过期，请重新登录");
+        boolean result = orderService.removeById(orderId, jwtInfo.getId());
+        if (result) return ResultData.ok().message("删除订单成功");
+        else return ResultData.error().message("订单不存在");
     }
 }

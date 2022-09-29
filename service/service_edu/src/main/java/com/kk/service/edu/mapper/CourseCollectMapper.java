@@ -2,7 +2,10 @@ package com.kk.service.edu.mapper;
 
 import com.kk.service.edu.pojo.CourseCollect;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.kk.service.edu.pojo.vo.CourseCollectReturnVo;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +17,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CourseCollectMapper extends BaseMapper<CourseCollect> {
-
+    public abstract List<CourseCollectReturnVo> getCourseCollectList(String memberId);
 }
