@@ -1,6 +1,5 @@
 package com.kk.service.ucenter.service;
 
-import com.kk.common.result.ResultEnum;
 import com.kk.service.ucenter.pojo.Member;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.kk.service.ucenter.pojo.dto.MemberDto;
@@ -20,4 +19,5 @@ public interface MemberService extends IService<Member> {
     public abstract String login(LoginVo loginVo);
     public abstract Member getByOpenid(String openid);
     public abstract MemberDto getMemberDtoByMemberId(String id);
+    public abstract Long countRegisterNum(String day);
 }

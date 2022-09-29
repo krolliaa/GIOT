@@ -103,4 +103,11 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         BeanUtils.copyProperties(member, memberDto);
         return memberDto;
     }
+
+    @Override
+    public Long countRegisterNum(String day) {
+        QueryWrapper<Member> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("gmt_create", day);
+        return baseMapper.selectCount(queryWrapper);
+    }
 }
