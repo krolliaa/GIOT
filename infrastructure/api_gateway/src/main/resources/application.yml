@@ -38,6 +38,10 @@ spring:
           uri: lb://service-vod
           predicates:
             - Path=/*/vod/**
+        - id: service-statistic
+          uri: lb://service-statistic
+          predicates:
+            - Path=/*/statistic/**
       discovery:
         locator:
           enabled: true

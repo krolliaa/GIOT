@@ -30,8 +30,7 @@ public class MemberController {
 
     @ApiOperation(value = "根据日期统计注册人数")
     @GetMapping(value = "/count-register-num/{day}")
-    public ResultData countRegisterNum(@ApiParam(name = "day", value = "统计日期") @PathVariable String day) {
-        Long num = memberService.countRegisterNum(day);
-        return ResultData.ok().data("registerNum", num);
+    public Long countRegisterNum(@ApiParam(name = "day", value = "统计日期") @PathVariable(value = "day") String day) {
+        return memberService.countRegisterNum(day);
     }
 }

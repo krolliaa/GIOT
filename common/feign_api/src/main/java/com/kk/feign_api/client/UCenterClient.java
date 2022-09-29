@@ -9,4 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface UCenterClient {
     @GetMapping(value = "/api/ucenter/member/inner/get-member-dto/{memberId}")
     public abstract MemberDto getMemberDtoByMemberId(@PathVariable(value = "memberId") String memberId);
+
+    @GetMapping(value = "/admin/ucenter/member/count-register-num/{day}")
+    public abstract Long countRegisterNum(@PathVariable(value = "day") String day);
 }
