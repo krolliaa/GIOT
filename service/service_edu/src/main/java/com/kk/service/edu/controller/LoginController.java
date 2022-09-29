@@ -3,7 +3,7 @@ package com.kk.service.edu.controller;
 import com.kk.common.result.ResultData;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping(value = "/user")
 public class LoginController {

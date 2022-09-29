@@ -27,7 +27,7 @@ import java.util.List;
  * @author kk
  * @since 2022-09-23
  */
-@CrossOrigin
+//@CrossOrigin
 @Api(description = "广告推荐管理")
 @RestController
 @RequestMapping("/admin/cms/ad")

@@ -15,7 +15,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @Api(description = "短信管理")
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/sms")
 @Slf4j

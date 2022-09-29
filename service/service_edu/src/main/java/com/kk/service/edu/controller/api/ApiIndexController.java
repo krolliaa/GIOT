@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @Api(description = "首页接口")
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/api/edu/index")
 @RestController
 public class ApiIndexController {

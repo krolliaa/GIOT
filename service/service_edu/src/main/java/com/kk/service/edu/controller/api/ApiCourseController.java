@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
+//@CrossOrigin
 @Api(description = "用户页面课程管理接口")
 @RestController
 @RequestMapping("/api/edu/course")

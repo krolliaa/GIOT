@@ -17,7 +17,7 @@ import java.util.List;
 
 @Api(description = "课程收藏用户页面接口")
 @Slf4j
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping(value = "api/edu/course-collect")
 public class ApiCourseCollectController {

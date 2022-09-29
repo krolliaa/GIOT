@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Api(description = "用户页面课程分类管理接口")
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/edu/subject")
 @Slf4j

@@ -30,7 +30,7 @@ import java.util.List;
  * @author kk
  * @since 2022-09-09
  */
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @Api(value = "课程分类管理", description = "课程分类管理")
 @RequestMapping("/admin/edu/subject")

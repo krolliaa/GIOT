@@ -27,7 +27,7 @@ import java.util.List;
  * @since 2022-09-09
  */
 @Api(value = "章节管理", description = "章节管理接口")
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/admin/edu/chapter")
 public class ChapterController {

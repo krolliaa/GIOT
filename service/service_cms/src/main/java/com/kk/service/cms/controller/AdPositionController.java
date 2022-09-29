@@ -24,7 +24,7 @@ import java.util.List;
  * @since 2022-09-23
  */
 @Api(description = "广告位置接口")
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/admin/cms/ad-position")
 @Slf4j

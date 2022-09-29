@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Api(value = "用户界面讲师接口")
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/edu/teacher")
 public class ApiTeacherController {

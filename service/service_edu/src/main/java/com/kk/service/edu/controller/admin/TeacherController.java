@@ -30,7 +30,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin/edu/teacher")
 @Slf4j
-@CrossOrigin
+//@CrossOrigin
 public class TeacherController {
 
     @Autowired

@@ -18,7 +18,7 @@ import java.util.List;
 
 @Api(value = "文件上传接口", description = "文件上传接口")
 @Slf4j
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/admin/oss/file")
 public class FileController {
